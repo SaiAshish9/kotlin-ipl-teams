@@ -6,8 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="horizontal"
+    android:background="#eee"
+    android:id="@+id/layout"
     >
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#eee"
+        android:id="@+id/list_view"
+        />
 </LinearLayout>

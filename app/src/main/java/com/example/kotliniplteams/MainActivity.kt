@@ -1,12 +1,15 @@
 package com.example.kotliniplteams
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.telecom.Call
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import kotlinx.android.synthetic.main.activity_card.view.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -67,6 +70,13 @@ class MainActivity : AppCompatActivity() {
             view.tv.text = team.name!!
             view.tv1.text = team.desc!!
             view.img.setImageResource(team.image!!)
+            view.setOnClickListener{
+                val intent = Intent(context, DetailsActivity::class.java)
+                intent.putExtra("name",team.name!!)
+                intent.putExtra("desc",team.desc!!)
+                intent.putExtra("image",team.image!!)
+                context!!.startActivity(intent)
+            }
             return view
         }
     }

@@ -15,14 +15,14 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity() {
 
     var teams = ArrayList<Team>()
-    var adapter:TeamAdapter?=null
+    var adapter: TeamAdapter? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Collections.addAll(teams,
-                Team("Srh", "Sunriser's Hyderabad", R.drawable.image),
+                Team("Srh", "Sunriser's Hyderabad", R.drawable.image, true),
                 Team("DD", "Delhi Daredevil's", R.drawable.image),
                 Team("Rcb", "Royal Challenger's Bangalore", R.drawable.image),
                 Team("Kkr", "Kolkata Knight Rider's", R.drawable.image),
@@ -31,18 +31,18 @@ class MainActivity : AppCompatActivity() {
                 Team("MI", "Mumbai Indian's", R.drawable.image),
                 Team("PK", "Punjab King's", R.drawable.image)
         )
-        adapter = TeamAdapter(this,teams)
+        adapter = TeamAdapter(this, teams)
         list_view.adapter = adapter
     }
 
-    class TeamAdapter:BaseAdapter{
+    class TeamAdapter : BaseAdapter {
 
         var teams = ArrayList<Team>()
-        var context:Context? = null
+        var context: Context? = null
 
-        constructor(context: Context, teams:ArrayList<Team>):super(){
-            this.teams=teams
-            this.context=context
+        constructor(context: Context, teams: ArrayList<Team>) : super() {
+            this.teams = teams
+            this.context = context
         }
 
         override fun getCount(): Int {
@@ -60,7 +60,10 @@ class MainActivity : AppCompatActivity() {
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             var team = teams[position]
             var inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            var view = inflater.inflate(R.layout.activity_card,null)
+            var view =
+                    if (team.champion)
+                        inflater.inflate(R.layout.activity_champion, null)
+                    else inflater.inflate(R.layout.activity_card, null)
             view.tv.text = team.name!!
             view.tv1.text = team.desc!!
             view.img.setImageResource(team.image!!)
